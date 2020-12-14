@@ -44,10 +44,6 @@ export default {
           this.degree = "C";
         }
 
-        // if default degree changes
-        // if (this.degree != "K") {
-        //   this.toggleCSS();
-        // }
         // use returned data
         this.aryData = response.data;
         this.parse(this.aryData);
@@ -55,10 +51,6 @@ export default {
   },
 
   methods: {
-    // toggleCSS(){
-    //   this.$refs.box.style.marginTop = '-8%'
-    //   this.$refs.box.style.bottom = '3%'
-    // },
     parse(aryData) {
       // add item to array
       this.current.push({
@@ -121,9 +113,4 @@ p {
   margin-top: -25%;
   padding-bottom: 0%;
 }
-/* .info {
-  position: relative;
-  margin-top: 25%;
-  padding-left: 42%;
-} */
 </style>
