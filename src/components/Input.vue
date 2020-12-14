@@ -85,12 +85,6 @@ export default {
 </script>
 
 <style scoped>
-/* #btn {
-  background-color: black;
-  color: white;
-  padding: 0.5%;
-  margin-left: 0.5%;
-} */
 .container {
   display: block;
   margin: auto;
@@ -103,11 +97,6 @@ export default {
   width: 100%;
   margin: auto;
   margin-top: 15%;
-  /* padding-left: 5%; */
-  /* top: 55%; */
-  /* left: 35%; */
-  /* top: 0%;
-  left: 0%; */
 }
 .zip {
   width: 50%;

@@ -9,12 +9,12 @@
         <p class="card-text">{{ x.temp + x.CF }}</p>
       </div>
     </div>
-    
   </div>
 </template>
 
 <script>
 import axios from "axios"; // for api import
+
 
 export default {
   name: "Weather",
@@ -23,42 +23,61 @@ export default {
       aryData: [], // ary for api data
       current: [], // chosen units
       imgUrl: "http://openweathermap.org/img/wn/", // img src for api icon
+      // apiKey : "",
       degree: "K", // default unit identifier
+      lat: 0,
+      long: 0,
+      loc: "",
     };
   },
 
   // grab api data
   mounted() {
-    axios
-      .get(
-        "https://api.openweathermap.org/data/2.5/weather?zip=" +
-          this.zip +
-          ",us&appid=047b14dc40c95da280f706a8a42c17e2&units=" +
-          this.unit
-      )
-      .then((response) => {
-        // set unit identifier
-        if (this.unit == "imperial") {
-          this.degree = "F";
-        } else if (this.unit == "metric") {
-          this.degree = "C";
-        }
+    var noLoc =
+      "https://api.openweathermap.org/data/2.5/weather?zip=" +
+      this.zip +
+      ",us&appid=047b14dc40c95da280f706a8a42c17e2" +
+      "&units=" +
+      this.unit;
+    var yesLoc =
+      "https://api.openweathermap.org/data/2.5/weather?lat=" +
+      this.lat +
+      "&lon=" +
+      this.long +
+      "&appid=047b14dc40c95da280f706a8a42c17e2" +
+      "&units=" +
+      this.unit;
+    this.getLoc(noLoc, yesLoc);
 
-        // if default degree changes
-        // if (this.degree != "K") {
-        //   this.toggleCSS();
-        // }
-        // use returned data
-        this.aryData = response.data;
-        this.parse(this.aryData);
-      });
+    axios.get(this.Loc).then((response) => {
+      // set unit identifier
+      if (this.unit == "imperial") {
+        this.degree = "F";
+      } else if (this.unit == "metric") {
+        this.degree = "C";
+      }
+
+      // use returned data
+      this.aryData = response.data;
+      this.parse(this.aryData);
+    });
   },
 
   methods: {
-    // toggleCSS(){
-    //   this.$refs.box.style.marginTop = '-8%'
-    //   this.$refs.box.style.bottom = '3%'
-    // },
+    getLoc(no, yes) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.displayPosition);
+        this.loc = yes;
+      } else {
+        this.loc = no;
+      }
+    },
+    displayPosition(position) {
+      this.lat = position.coords.latitude;
+      this.long = position.coords.longitude;
+      alert(this.loc);
+    },
+
     parse(aryData) {
       // add item to array
       this.current.push({
@@ -80,7 +99,7 @@ export default {
   position: relative;
   width: 100%;
   margin: auto;
-  margin-top: -8%; 
+  margin-top: -8%;
   bottom: 3%;
   z-index: -1;
 }
@@ -121,9 +140,4 @@ p {
   margin-top: -25%;
   padding-bottom: 0%;
 }
-/* .info {
-  position: relative;
-  margin-top: 25%;
-  padding-left: 42%;
-} */
 </style>
