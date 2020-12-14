@@ -37,7 +37,6 @@
         />
       </div>
     </div>
-    <!-- <button type="button" @click="verify()" id="btn">Search</button> -->
   </div>
 </template>
 
@@ -47,6 +46,7 @@ export default {
   data() {
     return {
       unit: "imperial",
+      
       // set units selected by user
       setUnit(val) {
         if (val == 0) {
@@ -70,6 +70,7 @@ export default {
         }
       },
 
+      // on valid entry- move search field
       toggleCSS() {
         this.$refs.box.style.position = "relative";
         this.$refs.box.style.left = "0";
@@ -85,12 +86,6 @@ export default {
 </script>
 
 <style scoped>
-/* #btn {
-  background-color: black;
-  color: white;
-  padding: 0.5%;
-  margin-left: 0.5%;
-} */
 .container {
   display: block;
   margin: auto;
@@ -103,10 +98,6 @@ export default {
   width: 100%;
   margin: auto;
   margin-top: 15%;
-  /* padding-left: 5%; */
-  /* top: 55%; */
-  /* left: 35%; */
-  /* top: 0%;
   left: 0%; */
 }
 .zip {
